@@ -2,6 +2,7 @@ package com.springboot.zuul;
 
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
  * run：过滤器的具体逻辑。可用很复杂，包括查sql，nosql去判断该请求到底有没有权限访问。
  */
 @Component
+@Slf4j
 public class MyFilter extends ZuulFilter {
     @Override
     public String filterType() {
@@ -37,10 +39,10 @@ public class MyFilter extends ZuulFilter {
     public Object run() {
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest request = ctx.getRequest();
-//        log.info(String.format("%s >>> %s", request.getMethod(), request.getRequestURL().toString()));
+        log.info(String.format("%s >>> %s", request.getMethod(), request.getRequestURL().toString()));
         Object accessToken = request.getParameter("token");
         if(accessToken == null) {
-//            log.warn("token is empty");
+            log.warn("token is empty");
             ctx.setSendZuulResponse(false);
             ctx.setResponseStatusCode(401);
             try {
@@ -49,7 +51,7 @@ public class MyFilter extends ZuulFilter {
 
             return null;
         }
-//        log.info("ok");
+        log.info("ok");
         return null;
     }
 }

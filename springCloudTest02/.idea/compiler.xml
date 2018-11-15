@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="client" />
         <module name="feign" />
+        <module name="gateway" />
         <module name="ribbon" />
         <module name="server" />
         <module name="service-feign" />
