@@ -1,18 +1,32 @@
 spring:
   application:
-    name: config-clinet
+    name: config-client
   cloud:
-    bus:
-      enabled: true
-    stream:
-      kafka:
-        binder:
-          brokers: 127.0.0.1:9092
     config:
       discovery:
+        enabled: true #spring.cloud.config.discovery.serviceId=config-server
         service-id: config-server
+      label: master #分支
+      uri: http://localhost:8888/
+      profile: dev
+    ## 开启消息跟踪
+    bus:
+      trace:
         enabled: true
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: syun
+    password: syun
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:8889/eureka
+      defaultZone: http://localhost:8889/eureka/
+server:
+  port: 8881
+management:
+  endpoints:
+    web:
+      exposure:
+        include: bus-refresh
+        #http://localhost:8881/actuator/bus-refresh post 刷新总线获取更改的配置
