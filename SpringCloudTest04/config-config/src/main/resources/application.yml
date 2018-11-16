@@ -1,0 +1,34 @@
+spring:
+  application:
+    name: config-client
+  cloud:
+    config:
+      discovery:
+        enabled: true #spring.cloud.config.discovery.serviceId=config-server
+        service-id: config-server
+      label: master #分支
+      uri: http://localhost:8888/
+      profile: dev
+    ## 开启消息跟踪
+    bus:
+      trace:
+        enabled: true
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: syun
+    password: syun
+
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8889/eureka/
+server:
+  port: 8881
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: bus-refresh
