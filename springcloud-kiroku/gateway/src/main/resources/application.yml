@@ -1,0 +1,40 @@
+spring:
+  application:
+    name: gateway
+  aop:
+    proxyTargetClass: true
+  main:
+    allow-bean-definition-overriding: true
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8000/eureka/
+  instance:
+    hostname: gateway-server
+server:
+  port: 8002
+zuul:
+  add-proxy-headers: true
+  routes:
+    oauth2:
+      path: /uaa/**
+      stripPrefix: false
+      sensitiveHeaders:
+
+security:
+  oauth2:
+    sso:
+      login-path: /login
+    client:
+      access-token-uri: http://oauth2/uaa/oauth/token
+      user-authorization-uri: /uaa/oauth/authorize
+      client-id: client
+      client-secret: client
+    resource:
+      jwt:
+        key-value: \
+          -----BEGIN PUBLIC KEY-----\
+          MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCXuABBuUnEposmPDq1PEgJBVH/ZLex4JrDYq2RgnEMaZiQdfbIyHH6kivgeT2jn9Mkp/t59Mzpp5R4B2sDlR5ACdAUVm0fkY4VSZXTpcKhSR7BoPYFClWi9HbwWlkg8Tc062j55nvuZejY37nToCSaRd0TArBfEdyykamGa9ydswIDAQAB
+          -----END PUBLIC KEY-----
+      id: gateway
+      service-id: ${PREFIX:}gateway
