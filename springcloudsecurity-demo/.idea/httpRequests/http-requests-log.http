@@ -1,0 +1,18 @@
+GET http://localhost:8080/personInfo
+
+<> 2018-11-24T060908.200.html
+
+###
+
+GET http://localhost:8080/personInfo
+
+<> 2018-11-24T050654.200.html
+
+###
+
+GET http://localhost:9000/person
+
+<> 2018-11-24T050126.401.json
+
+###
+
